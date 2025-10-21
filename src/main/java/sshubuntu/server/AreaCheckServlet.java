@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.owasp.encoder.Encode;
 
 @WebServlet(name = "AreaCheckServlet", urlPatterns = {"/area-check"})
 public class AreaCheckServlet extends HttpServlet {
@@ -99,7 +100,7 @@ public class AreaCheckServlet extends HttpServlet {
                 "\"hit\":" + point.isHit() + ","+
                 "\"creationTime\":\"" + time + "\""+
                 "}";
-        out.write(json);
+        out.write(Encode.forHtml(json));
         out.flush();
     }
 
@@ -110,7 +111,8 @@ public class AreaCheckServlet extends HttpServlet {
         String json = "{"+
                 "\"error\":\"" + escapeJson(message) + "\""+
                 "}";
-        out.write(json);
+
+        out.write(Encode.forHtml(json));
         out.flush();
     }
 
