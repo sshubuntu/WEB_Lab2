@@ -54,7 +54,6 @@
         <p style="margin:8px 0 0; color: var(--muted);">История будет доступна в модальном окне.</p>
     </div>
 </div>
-<!-- Results Modal -->
 <div id="results-modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="modal-backdrop" data-close></div>
     <div class="modal-dialog" role="document">

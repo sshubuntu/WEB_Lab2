@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="sshubuntu.server.Coordinates" %>
-<%@ page import="sshubuntu.server.Coordinates" %>
 <!DOCTYPE html>
 <html lang="ru">
 <head>

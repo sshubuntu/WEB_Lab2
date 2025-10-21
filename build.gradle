@@ -30,6 +30,6 @@ dependencies {
 }
 
 war {
-    duplicatesStrategy = DuplicatesStrategy.WARN // Для диагностики
-    archiveFileName = 'labwork2.war'
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    archiveFileName = 'WEB_Lab2.war'
 }
