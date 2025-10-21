@@ -47,23 +47,24 @@ public class AreaCheckServlet extends HttpServlet {
                 }
                 return;
             }
-            
-            HttpSession session = request.getSession();
-            @SuppressWarnings("unchecked")
-            List<Coordinates> results = (List<Coordinates>) session.getAttribute("results");
-            if (results == null) {
-                results = new ArrayList<>();
-            }
 
-            results.add(point);
-            session.setAttribute("results", results);
-            
-            if (acceptsJson(request)) {
-                writeJsonOk(response, point);
-            } else {
-                request.setAttribute("result", point);
-                request.setAttribute("results", results);
-                request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+            synchronized (this) {
+                @SuppressWarnings("unchecked")
+                List<Coordinates> results = (List<Coordinates>) getServletContext().getAttribute("results");
+                if (results == null) {
+                    results = new ArrayList<>();
+                }
+
+                results.add(point);
+                getServletContext().setAttribute("results", results);
+
+                if (acceptsJson(request)) {
+                    writeJsonOk(response, point);
+                } else {
+                    request.setAttribute("result", point);
+                    request.setAttribute("results", results);
+                    request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+                }
             }
             
         } catch (NumberFormatException e) {
