@@ -15,9 +15,13 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           architecture: x64
+
       - name: make ./gradlew exexutable
         run: chmod +x ./gradlew
+
       - name: build with Gradle
         run: ./gradlew build
+
       - name: test with Gradle
         run: ./gradlew test
+
