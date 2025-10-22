@@ -43,7 +43,7 @@ public class Coordinates {
         double R = this.r;
 
         boolean inRectangle = (x <= R && x >= 0) && (y >= 0 && y <= R);
-        boolean inQuarterCircle = (x <= 0 && y <= 0) && ((double)(x * x)  + y * y <= (R * R) / 4.0);
+        boolean inQuarterCircle = (x <= 0 && y <= 0) && ((x * x) + y * y <= (R * R) / 4.0);
         boolean inTriangle = (x >= 0 && y <= 0) && (y >= (x - R/2));
 
         return inRectangle || inQuarterCircle || inTriangle;
