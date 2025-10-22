@@ -84,7 +84,7 @@
 [
 <%
     @SuppressWarnings("unchecked")
-    java.util.List<Coordinates> results = (java.util.List<Coordinates>) session.getAttribute("results");
+    java.util.List<Coordinates> results = (java.util.List<Coordinates>) application.getAttribute("results");
     if (results != null) {
         for (int i = 0; i < results.size(); i++) {
             Coordinates c = results.get(i);

@@ -5,24 +5,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Результат</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css">
-    <script src="${pageContext.request.contextPath}/static/result.js" defer></script>
+    <% long v = System.currentTimeMillis(); %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/style.css?v=<%= v %>">
+    <script src="${pageContext.request.contextPath}/static/result.js?v=<%= v %>" defer></script>
 </head>
 <body>
 <div class="wrapper" style="max-width: 880px;">
     <div class="header" style="margin-bottom:16px;">
         <h1 style="margin:0 0 6px 0; font-size:22px;">Результат проверки</h1>
-        <div class="meta">ИТМО Веб-2 • Проверка попадания точки</div>
+        <div class="meta">ИТМО Веб-2 Проверка попадания точки</div>
     </div>
     <%
-        Coordinates result = (Coordinates) request.getAttribute("result");
-        String error = (String) request.getAttribute("error");
+        String error = (String) session.getAttribute("error");
+        java.util.List<Coordinates> results = (java.util.List<Coordinates>) application.getAttribute("results");
+        Coordinates result = null;
+        if (results != null && !results.isEmpty()) {
+            result = results.get(results.size() - 1);
+        }
+        session.removeAttribute("error");
     %>
     <div class="card">
         <%
             if (error != null) {
         %>
-            <div class="errors"><div class="err"><%= error %></div></div>
+        <div class="errors"><div class="err"><%= error %></div></div>
         <%
             } else if (result != null) {
         %>
@@ -51,13 +57,19 @@
                 </div>
             </div>
         <%
+            } else {
+        %>
+            <div class="errors"><div class="err">Нет данных для отображения</div></div>
+            <div style="margin-top:16px;">
+                <a class="btn" href="${pageContext.request.contextPath}/" style="text-decoration:none;">Вернуться к форме</a>
+            </div>
+        <%
             }
         %>
     </div>
-    
+
 </div>
 </div>
-<script></script>
 </body>
 </html>
 

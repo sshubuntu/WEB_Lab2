@@ -1,35 +1,26 @@
 package sshubuntu.server;
 
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import org.owasp.encoder.Encode;
 
 @WebServlet(name = "AreaCheckServlet", urlPatterns = {"/area-check"})
 public class AreaCheckServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+            throws IOException {
         processRequest(request, response);
     }
     
     private void processRequest(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
+            throws IOException {
         
         try {
             double x = Double.parseDouble(request.getParameter("x"));
@@ -42,8 +33,8 @@ public class AreaCheckServlet extends HttpServlet {
                 if (acceptsJson(request)) {
                     writeJsonError(response, 400, "Некорректные координаты или радиус");
                 } else {
-                    request.setAttribute("error", "Некорректные координаты или радиус");
-                    request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+                    request.getSession().setAttribute("error", "Некорректные координаты или радиус");
+                    response.sendRedirect(request.getContextPath() + "/result.jsp");
                 }
                 return;
             }
@@ -61,25 +52,22 @@ public class AreaCheckServlet extends HttpServlet {
                 if (acceptsJson(request)) {
                     writeJsonOk(response, point);
                 } else {
-                    request.setAttribute("result", point);
-                    request.setAttribute("results", results);
-                    request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+                    response.sendRedirect(request.getContextPath() + "/result.jsp");
                 }
             }
-            
         } catch (NumberFormatException e) {
             if (acceptsJson(request)) {
                 writeJsonError(response, 400, "Некорректный формат чисел");
             } else {
-                request.setAttribute("error", "Некорректный формат чисел");
-                request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+                request.getSession().setAttribute("error", "Некорректный формат чисел");
+                response.sendRedirect(request.getContextPath() + "/result.jsp");
             }
         } catch (Exception e) {
             if (acceptsJson(request)) {
                 writeJsonError(response, 500, "Ошибка сервера: " + e.getMessage());
             } else {
-                request.setAttribute("error", "Ошибка сервера: " + e.getMessage());
-                request.getRequestDispatcher("/WEB-INF/views/result.jsp").forward(request, response);
+                request.getSession().setAttribute("error", "Ошибка сервера: " + e.getMessage());
+                response.sendRedirect(request.getContextPath() + "/result.jsp");
             }
         }
     }
@@ -101,7 +89,7 @@ public class AreaCheckServlet extends HttpServlet {
                 "\"hit\":" + point.isHit() + ","+
                 "\"creationTime\":\"" + time + "\""+
                 "}";
-        out.write(Encode.forHtml(json));
+        out.write(json);
         out.flush();
     }
 
@@ -113,7 +101,7 @@ public class AreaCheckServlet extends HttpServlet {
                 "\"error\":\"" + escapeJson(message) + "\""+
                 "}";
 
-        out.write(Encode.forHtml(json));
+        out.write(json);
         out.flush();
     }
 
