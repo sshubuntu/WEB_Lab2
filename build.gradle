@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'war'
     id("com.github.spotbugs") version "6.4.4"
-    id("io.snyk.gradle.plugin.snykplugin") version "0.7.0"
 }
 
 group = 'sshubuntu.server'
@@ -21,12 +20,6 @@ spotbugs {
     maxHeapSize = "1g"
 }
 
-snyk {
-    autoDownload = true
-    autoUpdate = true
-    arguments = ['--severity-threshold=high', '--sarif-file-output=build/reports/snyk.sarif']
-}
-
 dependencies {
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
     compileOnly 'jakarta.servlet.jsp:jakarta.servlet.jsp-api:3.1.1'
@@ -40,3 +33,4 @@ war {
     duplicatesStrategy = DuplicatesStrategy.WARN
     archiveFileName = 'WEB_Lab2.war'
 }
+

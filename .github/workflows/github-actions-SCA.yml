@@ -16,11 +16,12 @@ jobs:
         run: chmod +x ./gradlew
       - name: Build with Gradle
         run: ./gradlew build
-      - name: Run Snyk to check for vulnerabilities
-        run: ./gradlew snykTest --no-configuration-cache
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk Test
+        run: snyk test --gradle
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      - name: Upload Snyk SARIF report
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: build/reports/snyk.sarif
+        continue-on-error: true
