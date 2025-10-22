@@ -1,0 +1,16 @@
+name: software composition analysis
+run-name: vibecoder is running a software composition analysis
+on: [push]
+
+jobs:
+  snyk-software-composition-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=high --sarif-file-output=snyk.sarif
