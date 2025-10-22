@@ -17,6 +17,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
+        run: ./gradlew snyk-test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
