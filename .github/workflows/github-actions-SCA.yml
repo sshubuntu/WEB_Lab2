@@ -17,7 +17,7 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Run Snyk to check for vulnerabilities
-        run: ./gradlew snyk-Test
+        run: ./gradlew snykTest --no-configuration-cache
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Upload Snyk SARIF report
