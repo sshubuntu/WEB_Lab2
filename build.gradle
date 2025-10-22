@@ -23,7 +23,6 @@ spotbugs {
 }
 
 snyk {
-    token = System.getenv('SNYK_TOKEN')
     autoDownload = true
     autoUpdate = true
     arguments = ['--severity-threshold=high']
