@@ -1,4 +1,3 @@
-
 plugins {
     id 'java'
     id 'war'
@@ -25,7 +24,7 @@ spotbugs {
 snyk {
     autoDownload = true
     autoUpdate = true
-    arguments = ['--severity-threshold=high']
+    arguments = ['--severity-threshold=high', '--sarif-file-output=build/reports/snyk.sarif']
 }
 
 dependencies {
