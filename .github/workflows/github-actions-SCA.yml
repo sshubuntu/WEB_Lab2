@@ -1,4 +1,5 @@
 name: SCA with Snyk
+run-name: Software Composition Analysis with snyk
 on: [push, pull_request]
 jobs:
   sca:
@@ -16,12 +17,6 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/gradle@master
+        uses: snyk/actions/node@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --severity-threshold=high --sarif-file-output=snyk.sarif
-      - name: Upload SARIF report
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
