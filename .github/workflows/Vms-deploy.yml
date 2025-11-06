@@ -1,0 +1,5 @@
+name: Virtual Machines Server Deploy
+run-name: Deploy on Ubuntu and Fedora server using Ansible
+on: [push, pull_request]
+
+jobs:
