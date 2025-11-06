@@ -1,0 +1,8 @@
+---
+  - name: Deploying on gelios server
+    hosts: gelios_server
+    become: yes
+
+    tasks:
+      - name: ping gelios
+        ping:
