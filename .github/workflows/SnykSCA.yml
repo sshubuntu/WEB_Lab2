@@ -4,7 +4,9 @@ on: [push, pull_request]
 jobs:
   call-build-in-local-repo:
     uses: sshubuntu/WEB_Lab2/.github/workflows/build.yml@main
+
   sca:
+    needs: call-build-in-local-repo
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
