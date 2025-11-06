@@ -1,5 +1,13 @@
 name: Build gradle project
-on: [push, pull_request]
+on:
+  workflow_call:
+    inputs:
+      config-path:
+        required: true
+        type: string
+    secrets:
+      personal_access_token:
+        required: true
 
 jobs:
   Build:
