@@ -1,23 +1,14 @@
-name: SCA with Snyk
-run-name: Software Composition Analysis with snyk
+name: Software Composition Analysis with Snyk
+run-name: run SCA with snyk
 on: [push, pull_request]
 jobs:
+  call-build-in-local-repo:
+    uses: sshubuntu/WEB_Lab2/.github/workflows/build.yml@main
   sca:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-
-      - name: Build with Gradle
-        run: ./gradlew build
 
       - name: Install Snyk CLI
         run: npm install -g snyk
