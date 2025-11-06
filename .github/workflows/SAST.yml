@@ -12,5 +12,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v5
 
+      - name: make ./gradlew exexutable
+        run: chmod +x ./gradlew
+
       - name: test with Gradle
         run: ./gradlew test
