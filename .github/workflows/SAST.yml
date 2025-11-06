@@ -1,0 +1,16 @@
+name: Static Application Security Testing
+run-name: run a static code analyzer using spotbugs
+on: [push, pull_request]
+
+jobs:
+  call-build-in-local-repo:
+    uses: sshubuntu/WEB_Lab2/.github/workflows/build.yml@main
+
+  Static-application-Security-Testing:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+
+      - name: test with Gradle
+        run: ./gradlew test
