@@ -4,7 +4,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>ИТМО Веб-2 — Проверка попадания точки</title>
+    <title>Веб-2 — Проверка попадания точки</title>
     <% long v = System.currentTimeMillis(); %>
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/static/images/img.png?v=<%= v %>">
     <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/static/images/img.png?v=<%= v %>">
@@ -15,8 +15,8 @@
 <body>
 <div class="wrapper">
     <div class="header">
-        <h1>Лабораторная работа №2 — Веб</h1>
-        <div class="meta">Студент: <b>Шубин Егор Вячеславович</b> Группа: <b>P3209</b> Вариант: <b>468125</b></div>
+        <h1>Лаба №2</h1>
+        <div class="meta">Студент: <b>Шубик Егор Вячеславович</b> Группа: <b>P3209</b> Вариант: <b>468125</b></div>
     </div>
 
     <div class="card canvas-box">
