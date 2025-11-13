@@ -1,0 +1,37 @@
+- name: add hosts to nagios monitoring
+  hosts: prod_servers
+  become: yes
+
+  vars:
+    nagiosConf: /etc/nagios/nrpe.cfg
+
+  tasks:
+    - name: download nagios-server and nagios-plugins packets
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - nagios-plugins
+        - nagios-nrpe-server
+
+
+    - name: Set server_address in NRPE config
+      lineinfile:
+        path: "{{nagiosConf}}"
+        regexp: '^server_address='
+        line: "server_address=0.0.0.0"
+        backup: yes
+
+    - name: Set allowed_hosts in NRPE config
+      lineinfile:
+        path: "{{nagiosConf}}"
+        regexp: '^allowed_hosts='
+        line: "allowed_hosts=127.0.0.1,172.22.83.180,192.168.1.0/24"
+        backup: yes
+
+
+    - name: restart nagios-nrpe-server
+      systemd_service:
+        state: restarted
+        enabled: true
+        name: nagios-nrpe-server
