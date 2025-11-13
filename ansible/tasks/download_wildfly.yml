@@ -1,0 +1,22 @@
+- name: сheck if wildFly zip exists
+  stat:
+    path: "{{wildfly_zip}}"
+  register: wildfly_dir_zip_check
+
+- name: Download WildFly
+  get_url:
+      url: https://github.com/wildfly/wildfly/releases/download/37.0.1.Final/wildfly-37.0.1.Final.zip
+      dest: "{{wildfly_zip}}"
+  when: not wildfly_dir_zip_check.stat.exists
+
+- name: сheck if wildFly dir exists
+  stat:
+    path: "{{wildfly_dir}}"
+  register: wildfly_dir_check
+
+- name: Extract WildFly
+  unarchive:
+    src: "{{wildfly_zip}}"
+    dest: "{{home}}"
+    remote_src: yes
+  when: not wildfly_dir_check.stat.exists
