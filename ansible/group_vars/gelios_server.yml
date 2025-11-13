@@ -1,0 +1,4 @@
+ansible_user : s468125
+ansible_port : 2222
+ansible_python_interpreter : /usr/local/bin/python
+ansible_become: false
