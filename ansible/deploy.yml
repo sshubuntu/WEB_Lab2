@@ -1,0 +1,7 @@
+---
+- name: deploy on gelios
+  hosts: all
+  become: false
+
+  roles:
+    - { role: deploy_on_servers, when ansible_os_family=FreeBSD}

@@ -1,0 +1,9 @@
+- name: check if wildfly is running
+  command: pgrep -f wildfly
+  register: wildfly_status
+  ignore_errors: yes
+  changed_when: false
+
+- name: start fucking wildfly if not running
+  shell: nohup {{ wildfly_dir }}/bin/standalone.sh -Djboss.http.port=23489 -Djboss.https.port=23488 -Djboss.management.http.port=23487 -Djboss.management.https.port=23486 -b 0.0.0.0 -bmanagement 0.0.0.0 -Djboss.thread.pool.max.size=25 >{{log_file}}  2>&1 &
+  when: wildfly_status.rc != 0

@@ -32,5 +32,6 @@ dependencies {
 war {
     duplicatesStrategy = DuplicatesStrategy.WARN
     archiveFileName = 'WEB_Lab2.war'
+    destinationDirectory = file('/ansible/roles/deploy_on_servers/files')
 }
 
