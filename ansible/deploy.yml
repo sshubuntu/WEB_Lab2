@@ -1,5 +1,5 @@
 ---
-- name: deploy on gelios
+- name: deploy
   hosts: all
   become: false
 

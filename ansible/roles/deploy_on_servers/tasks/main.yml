@@ -1,0 +1,19 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for deploy_on_gelios
+- name: load java on ubuntu servers
+  apt: name=openjdk-21-jdk state=present
+  become: true
+  when: ansible_os_family=="Debian"
+
+- name: export JAVA_HOME
+  shell: export JAVA_HOME="/usr/lib/jvm/java-21-openjdk-amd64"
+  when: ansible_os_family=="Debian"
+
+- include_tasks: download_wildfly.yml
+
+- include_tasks: start_wildfly.yml
+
+- name: copy project
+  copy: src=WEB_Lab2.war dest={{ wildfly_dir }}/standalone/deployments/
+  notify: restart fucking wildfly

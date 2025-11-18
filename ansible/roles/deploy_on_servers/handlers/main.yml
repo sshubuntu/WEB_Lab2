@@ -1,0 +1,5 @@
+#SPDX-License-Identifier: MIT-0
+---
+# handlers file for deploy_on_gelios
+- name: restart fucking wildfly
+  include_tasks: ../tasks/restart_service.yml
